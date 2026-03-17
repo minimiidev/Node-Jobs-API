@@ -13,7 +13,7 @@ export class AuthController {
         const { name, password, email } = req.body;
 
         if (!name || !password || !email) {
-            throw new BadRequestError(StatusCodes.BAD_REQUEST, "Fields name, password or email missing")
+            throw new BadRequestError("Fields name, password or email missing")
         }
 
         const user = await userModel.create({ name, email, password })
@@ -33,7 +33,7 @@ export class AuthController {
 
         const user = await userModel.findOne({ email })
         if (!user) {
-            throw new UnauthenticatedError(StatusCodes.UNAUTHORIZED, "Invalid Credentials")
+            throw new UnauthenticatedError("Invalid Credentials")
         }
 
         const token = jwt.sign({ userId: user._id, name: user.name }, Environment.JWT_SECRET, {
@@ -42,7 +42,7 @@ export class AuthController {
 
         const comparePassword = await bcrypt.compare(password, user.password)
         if (!comparePassword) {
-            throw new UnauthenticatedError(StatusCodes.UNAUTHORIZED, "Invalid Credentials")
+            throw new UnauthenticatedError("Invalid Credentials")
 
         }
 

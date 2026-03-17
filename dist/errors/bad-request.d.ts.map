@@ -1,0 +1,1 @@
+{"version":3,"file":"bad-request.d.ts","sourceRoot":"","sources":["../../src/errors/bad-request.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,cAAc,EAAE,MAAM,cAAc,CAAA;AAE7C,qBAAa,eAAgB,SAAQ,cAAc;IACjD,OAAO,CAAC,QAAQ,CAAC,UAAU,CAAC;gBAEhB,OAAO,EAAE,MAAM;CAI5B"}

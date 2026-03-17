@@ -2,14 +2,18 @@ import { StatusCodes } from "http-status-codes"
 import { CustomAPIError } from "../errors"
 import { NextFunction, Request, Response } from "express"
 
+interface ValidationError {
+  message: string
+}
+
 interface Error {
   name?: string
   value?: any
-  errors?: any
+  errors?: Record<string, ValidationError>
   code?: number
   keyValue?: any
   statusCode: number
-  message: string
+  message?: string
 }
 
 export const errorHandlerMiddleware = (err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -25,7 +29,7 @@ export const errorHandlerMiddleware = (err: Error, req: Request, res: Response, 
 
   if (err.name === "ValidationError") {
     customError.statusCode = StatusCodes.BAD_REQUEST
-    customError.msg = Object.values(err.errors).map((item) => item.message).join(",")
+    customError.msg = Object.values(err.errors ?? {}).map((item) => item.message).join(",")
   }
 
   if (err.code && err.code === 11000) {
@@ -41,4 +45,3 @@ export const errorHandlerMiddleware = (err: Error, req: Request, res: Response, 
   return res.status(customError.statusCode).json({ msg: customError.msg })
 
 }
-

@@ -13,7 +13,6 @@ import { AuthMiddleware } from "./middleware/authentication";
 
 import helmet from "helmet";
 import cors from "cors";
-import xss from "xss-clean";
 import rateLimiter from "express-rate-limit";
 
 // * App
@@ -28,7 +27,6 @@ app.use(rateLimiter({
 }))
 app.use(helmet());
 app.use(cors());
-app.use(xss());
 // * Routes
 app.use("/api/v1/auth", AuthRouter.routes);
 app.use("/api/v1/jobs", AuthMiddleware, JobsRouter.routes);
